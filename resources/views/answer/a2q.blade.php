@@ -64,6 +64,7 @@
       <p>Answer: {{$answer->answer}}</p>
       </div>
       </div>
+      <hr>
   @endforeach
       </div>
 

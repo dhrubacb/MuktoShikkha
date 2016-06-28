@@ -45,7 +45,7 @@ class qfeedcon extends Controller
         $answer->answer = $request->answer;
         $answer->ques_id = $request->ques_id;
         
-        //$answer->id = 1;
+        $answer->id = 1;
         
         if($answer -> save()){
             return  "Success";

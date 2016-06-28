@@ -10,4 +10,6 @@ class question extends Model
     
     
     protected $table="question";
+
+    protected $fillable = ['id'];
 }
