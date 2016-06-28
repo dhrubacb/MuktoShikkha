@@ -7,8 +7,10 @@
      <div class="container">
         <div class="register">
        
-<form method="POST" action="postregister">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+<!--<form method="POST" files = "true" action="postregister">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}" > -->
+
+{!! Form::open(array('route' => 'postregister' , 'files' => true) ) !!}
 
 
     <div class="row">
@@ -62,7 +64,7 @@
      </div>
     
    </div>
-</form>
+{!! Form::close() !!}
 </div>
   </div>
 

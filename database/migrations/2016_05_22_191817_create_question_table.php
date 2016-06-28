@@ -19,8 +19,8 @@ class CreateQuestionTable extends Migration
             $table->text('class');
             $table->text('subject');
             $table->text('chapter');
-            $table->integer('id')->unsigned();
-            $table->foreign('id')->references('id')->on('users');
+             // $table->integer('id')->unsigned();
+             //  $table->foreign('id')->references('id')->on('users');
             $table->timestamps();
         });
     }

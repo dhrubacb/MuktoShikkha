@@ -8,8 +8,6 @@
 </head>
 <body>
 
-
-
 <div class="container">
   <h2 style="margin-top: 20px; margin-bottom: 50px; text-align: center;text-shadow: 2px 2px 4px grey">Login as Admin</h2>
   <div class="row">
@@ -35,8 +33,6 @@
       <label for="pwd">Password:</label>
       <input name = "password" type="password" class="form-control" id="pwd" placeholder="Enter password">
     </div>
-
-
     <div class="checkbox">
       <label><input type="checkbox"> Remember me</label>
     </div>

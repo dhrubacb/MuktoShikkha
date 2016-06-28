@@ -29,12 +29,10 @@ class QuesController extends Controller
     	$question->class = $request->class;
     	$question->subject = $request->subject;
     	$question->chapter = $request->chapter;
-    	$question->user_id = 1;
-    	
-
+    	//$question->id = 1;
     	
     	if($question -> save()){
-    		return 'Success';
+    		return  "Success";
     	}
     	else{
     		return 'error';

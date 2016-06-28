@@ -40,11 +40,11 @@
   <div class="main_items">
     <div class="question">
       <div class="ques_title">
-        <h3>{{ $users->ques_title }}</h3>
+        <h3>{{ $question->ques_title }}</h3>
       </div>
              <hr>
       <div class="ques_detail">
-      <p>{{ $users->ques_detail }}</p>
+      <p>{{ $question->ques_detail }}</p>
 
       </div>
       <h4>Asked by <a href="#">Dhr</a></h4>
@@ -54,53 +54,31 @@
 
       <div class="answer">
       <hr>
+      @foreach($answer as $answer)
       <div class="row">
       <div class="col-md-1">
       <a href="#">Kutti</a>
       </div>
       
       <div class="col-md-9">
-      <p>Answer:  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Answer: {{$answer->answer}}</p>
       </div>
+      </div>
+  @endforeach
       </div>
 
-      </div>
-
-      <div class="answer">
-      <hr>
-      <div class="row">
-      <div class="col-md-1">
-      <a href="#">Muti</a>
-      </div>
       
-      <div class="col-md-9">
-      <p>Answer:  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
-      </div>
-      
-
-      </div>
 <hr>
       <div class="response_form">
-
       <div style="border:solid black 1px; background-color: #ffffe2 "><h5>You can add your answer here... </h5></div>
       <br>
-      
-      <form action="submit">
+      {!! Form::open(array('url' => 'answer/store', 'method'=>'POST')) !!}
+   
        <textarea class="form-control" name="answer" rows="7" id="answer"></textarea>
         <br>
-        <button type="button" class="btn btn-default" >Add Answer</button> 
-       </form>
+        <input type="hidden" name="ques_id" value="{{ $question->ques_id }}">
+        <button type="submit" class="btn btn-default" >Add Answer</button> 
+        {!! Form::close() !!}
 
       </div>
 
