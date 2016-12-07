@@ -1,19 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport"  content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</head>
-<body>
+@extends('Blade_code.header_footer_2')
 
-<div class="container">
-  <h2 style="margin-top: 20px; margin-bottom: 50px; text-align: center;text-shadow: 2px 2px 4px grey">Login as Admin</h2>
-  <div class="row">
-  <div class="col-md-4 ">
+@section('top_header')
+  <style type="text/css">
+    body{
+        background-color: #E9EBEE;
+    }
+    .login{
+        width:660px;
+        height: 400px;
+        padding-left: 150px;
+        margin-left: 340px;
+        margin-top: 100px;
+        background-color: #fff;
+    }
+</style>
 
+<div class=login>
+    <div class="row">
+
+      
+      <div class="col-md-8">
+    
+      <h3 style="text-align:center;color:#286090">লগ ইন</h3>
+          <br>
+
+<form   method="POST" action="{!! action('Auth\AuthController@doLogin') !!}">
+    {!! csrf_field() !!}
+
+   <div class="form-group">
+        
+        <input name = "email" type="email" class="form-control" id="email" placeholder="ইমেইল">
+    </div>
+<br>
   
+         <div class="form-group">
+        <input name = "password" type="password" class="form-control" id="pwd" placeholder="পাসওয়ার্ড">
+   </div>
+
+    <div>
+        <input type="checkbox" name="remember"> মনে রাখুন
+    </div> 
+<br>
 @if (count($errors) > 0)
     <ul>
         @foreach ($errors->all() as $error)
@@ -22,26 +49,21 @@
     </ul>
 @endif   
 
-<form   method="POST" action="dologin">
-    {!! csrf_field() !!}
+    <div>
+        <button type="submit" class="btn btn-success btn-block">লগ ইন</button>
+    </div>
 
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input name = "email" type="email" class="form-control" id="email" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-      <label for="pwd">Password:</label>
-      <input name = "password" type="password" class="form-control" id="pwd" placeholder="Enter password">
-    </div>
-    <div class="checkbox">
-      <label><input type="checkbox"> Remember me</label>
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
-  </div>
-    
-  </div>
+</form>
+
+
+<br>
+<p style="display:inline;">একাউন্ট নেই?</p><a href="register" style="padding-left: 5px; display:inline;">একাউন্ট খুলুন বিনামূল্যে </a> 
+</div>
+</div>
 </div>
 
-</body> 
-</html>
+
+ @section('footer')
+
+      @endsection
+        @endsection

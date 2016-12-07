@@ -13,14 +13,15 @@ class CreateQuestionTable extends Migration
     public function up()
     {
         Schema::create('question', function (Blueprint $table) {
-            $table->increments('ques_id');
+            $table->increments('id');
             $table->text('ques_title');
             $table->text('ques_detail');
             $table->text('class');
             $table->text('subject');
             $table->text('chapter');
-            $table->integer('id')->unsigned();
-           // $table->foreign('id')->references('id')->on('users');
+            $table->integer('view_count')->default(0);
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -4,15 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Hash;
-use DB;
 use App\User;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
-
 
 class AuthController extends Controller
 {
@@ -36,7 +34,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
+       // $this->middleware('guest', ['except' => 'getLogout']);
     }
 
     /**
@@ -54,6 +52,7 @@ class AuthController extends Controller
         ]);
     }
 
+    
     /**
      * Create a new user instance after a valid registration.
      *
@@ -71,6 +70,15 @@ class AuthController extends Controller
 
 
 
+
+
+
+public function login(){
+    
+        return view('login');
+}
+
+
 /**********************  Login System *********************/    
     
     public function doLogin(Request $request)
@@ -83,6 +91,8 @@ class AuthController extends Controller
 
         $allInput = $request->all();
         $validation = Validator::make($allInput, $rules);
+
+        // dd($allInput);
 
 
         if ($validation->fails())
@@ -99,11 +109,18 @@ class AuthController extends Controller
                         'email'    => $allInput['email'],
                         'password' => $allInput['password']
             );
-            
+            // return $credentials;
             if (Auth::attempt($credentials))
             {
                 
-                   return redirect()->route('home');
+                //return redirect()->route('userhome')->with('email' , $allInput['email']);
+
+                $picture = User::where('email', '=' , $allInput['email'])
+                              ->first(['imagename']);
+
+                return view('project.userhome')
+                       ->with('picture' , $picture->imagename)
+                       ->with('email' , $allInput['email']);
 
             } else
             {
@@ -112,7 +129,6 @@ class AuthController extends Controller
                             ->withErrors('Error in Email Address or Password.');
             }
         }
-
         return 'Do Login Executes';
     }
     
@@ -123,41 +139,11 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('login')
                     ->with('success',"You are successfully logged out.");
+        // return 'Logout Panel';
     }
 
 
  /************************** Register System ***************************/
 
-  
-  
-
-
-   public function postRegister(Request $request){
-
-    //return echo "jhjkhjkhjkh";
-
-       DB::table('profile')->insert([
-         'firstname'  => $request['firstname'] ,
-         'lastname'   => $request['lastname'] ,
-         'email'      => $request['email'],
-         'password'   => Hash::make($request['password']),
-         'gender'     => $request['gender'],
-         'birthdate'  => $request['birthdate']
-
-         ]);
-
-
-        DB::table('users')->insert([
-         
-         'email'      => $request['email'],
-         'password'   => Hash::make($request['password'])
-         
-
-         ]);
-
-      
-     
-       return view('project.home');
-   }
 
 }

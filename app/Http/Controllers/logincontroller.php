@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
 use DB;
+use Hash;
 use input;
 use App\User;
 use Validator;
@@ -34,9 +34,9 @@ class logincontroller extends Controller
                    // ->with('title', 'Login');
     }
 
-/**********************  Login System *********************/    
+/**********************  Login System *********************/
     
-    public function doLogin(Request $request)
+   public function doLogin(Request $request)
     {
         $rules = array
         (
@@ -67,9 +67,9 @@ class logincontroller extends Controller
             // return $credentials;
             if (Auth::attempt($credentials))
             {
-                // return User::all();
-                // return Auth::check();
-                return redirect()->route('loggedhome');
+                
+                return redirect()->route('userhome');
+
             } else
             {
                 return redirect()->route('login')
@@ -87,9 +87,8 @@ class logincontroller extends Controller
         Auth::logout();
         return redirect()->route('login')
                     ->with('success',"You are successfully logged out.");
-        // return 'Logout Panel';
+        
     }
-
 
  /************************** Register System ***************************/
 
@@ -104,51 +103,45 @@ class logincontroller extends Controller
 
   
 
-  // if($request->hasFile('image')){
+  //  if($request->hasFile('image')){
     
-// $image = $request->file('image');
-  // $imagename = "ssssss".'.'.$image->getClientOriginalExtension();
+  //    $image = $request->file('image');
+  //    $imagename = "users_image/$request->email".'.'.$image->getClientOriginalExtension();
+    
+  //    //$image->move(base_path().'/public/users_image/', 
+  //    //   $imagename );
+  //    //    $fullImage = '/users_image/image-' . rand(229,18166) . strtotime(date('Y -m-d H:i:s')) . '.' . $image->getClientOriginalExtension();
+  //    // $imagename = "users_image/ssssss".'.'.$image->getClientOriginalExtension();
 
-  // Image::make($image)->resize(1200, 600)
-   //->save(public_path($imagename));
-
-   //$image->move(base_path().'/public/users_image/', 
-     //   $imagename );
-
-
-   // $image = $request->file('image');
-//    $fullImage = '/users_image/image-' . rand(229,18166) . strtotime(date('Y-m-d H:i:s')) . '.' . $image->getClientOriginalExtension();
- //  $imagename = "users_image/ssssss".'.'.$image->getClientOriginalExtension();
-
-  //  Image::make($image)->resize(1200, 600)->save(public_path($imagename));
+  //    Image::make($image)->resize(1200, 600)->save(public_path($imagename));
 
    
   // }
   // else{
 
-  //   return "fgfg";
+  //   return "ছবি আপলোড করুন";
   // }
 
-     DB::table('users')->insert([
-
-    
-     'name'            => $request['firstname'] ,
-     'email'           => $request['email'] ,
-     'password'        => Hash::make($request['password']) ,
-     'school_name'     =>  $request['lastname'] ,
-     //'img_link'        => $request[''] ,
-     'img_link'        => "-------"  ,
-     'birth_of_date'   => "-------"  ,
-     'current_status'  => "-------"  ,
-     'contact_no'      => "-------"  ,
-     'fb_link'         => "-------"  ,
-     'joining_date'    => "-------"  ,
-
-        ]);
 
 
-     
-       return view('project.home');
+     $data = new user();
+
+                    $data->name = $request->name;
+                    $data->email = $request->email;
+                    $data->password = Hash::make($request->password);
+                    $data->joining_date = "--------";
+                    $data->birth_of_date = $request->birth_of_date;
+                    $data->contact_no = $request->contact_no;
+                    // $data->imagename = $imagename;
+                    $data->school_name = $request->school_name;
+                   // $data->college_name = $request->college_name;
+                   // $data->university_name = $request->university_name;
+                   // $data->about = $request->about;
+                    $data->fb_link = $request->fb_link;
+
+       $data->save();
+
+       return view('project.userhome' ,  ['email' => $school_name   ] );
    }
 
 }
